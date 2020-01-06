@@ -1,24 +1,26 @@
 (function() {
 
-  const serverUrl = 'http://127.0.0.1:3000';
+  const serverUrl = 'http://127.0.0.1:3001';
 
   //
   // TODO: build the swim command fetcher here
   //
-  window.ajaxFileDownload = () => {
+  const moveSwimTeam = () => {
     // var formData = new FormData();
     // formData.append('file', file);
     $.ajax({
       type: 'GET',
-      url: 'http://127.0.0.1:3000',
-      cache: false,
-      contentType: false,
-      processData: false,
+      url: serverUrl,
       success: (data) => {
         SwimTeam.move(data);
+      },
+      complete: () => {
+        setTimeout(moveSwimTeam, 5000)
       }
     });
   };
+
+  moveSwimTeam();
 
 
   /////////////////////////////////////////////////////////////////////
@@ -32,7 +34,7 @@
     $.ajax({
       type: 'POST',
       data: formData,
-      url: serverUrl,
+      url: 'http://127.0.0.1:3001/background.jpg',
       cache: false,
       contentType: false,
       processData: false,
